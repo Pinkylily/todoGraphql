@@ -49,5 +49,6 @@
           "alwaysTryTypes": true
         }
       }
-    }
+    },
+    "ignorePatterns": ["vite.config.js"]
   }

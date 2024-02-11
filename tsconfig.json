@@ -1,12 +1,18 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "jsx": "react-jsx",
         "module": "ES2022",
+        "jsx": "react-jsx",
+        "jsxImportSource": "@emotion/react",
         "moduleResolution": "node",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@common/*": ["src/common/*"]
+        }
     },
     "include": [
         "src/**/*"
