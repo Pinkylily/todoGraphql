@@ -8,3 +8,8 @@ export interface ITodo {
   isDone: boolean;
   type: ITodoType;
 }
+
+export interface IUpdateTodoVariables {
+  id: string;
+  isDone: boolean;
+}

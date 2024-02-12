@@ -1,12 +1,14 @@
 import { ApolloProvider } from "@apollo/client";
-import ErrorBoundary from "@common/components/errorBoundary/ErrorBoundary";
 import { Global, css } from "@emotion/react";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Details from "./Todo/pages/Details/Details";
-import List, { FallbackList } from "./Todo/pages/List/List";
 import client from "./client";
+
+import { Suspense, lazy } from "react";
+
+const Details = lazy(() => import("./Todo/pages/Details/Details"));
+const List = lazy(() => import("./Todo/pages/List/List"));
 
 const App = () => {
   return (
@@ -19,23 +21,23 @@ const App = () => {
           }
         `}
       />
+
       <BrowserRouter>
-        <header>
+        <header
+          css={css`
+            margin-bottom: 20px;
+          `}
+        >
           <Link to="/">
             <Typography variant="h2">Ma liste de choses à faire</Typography>
           </Link>
         </header>
-        <Routes>
-          <Route path="/details/:id" element={<Details />} />
-          <Route
-            path="/"
-            element={
-              <ErrorBoundary fallback={<FallbackList />}>
-                <List />
-              </ErrorBoundary>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<CircularProgress />}>
+          <Routes>
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/" element={<List />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </ApolloProvider>
   );
