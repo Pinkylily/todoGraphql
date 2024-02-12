@@ -1,5 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import ErrorBoundary from "@common/components/errorBoundary/ErrorBoundary";
+import { Global, css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
@@ -10,6 +11,14 @@ import client from "./client";
 const App = () => {
   return (
     <ApolloProvider client={client}>
+      <Global
+        styles={css`
+          a {
+            text-decoration: none;
+            color: unset;
+          }
+        `}
+      />
       <BrowserRouter>
         <header>
           <Link to="/">
