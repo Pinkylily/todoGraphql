@@ -3,7 +3,7 @@ import { Global, css } from "@emotion/react";
 import { CircularProgress, Container, CssBaseline } from "@mui/material";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import client from "./client";
+import client from "@/client";
 
 import Header from "@common/components/header/Header";
 import TodoContext from "@todo/data/TodoContext";
