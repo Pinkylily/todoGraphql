@@ -30,6 +30,11 @@ Pour le découpage il y a:
 
 ## Les améliorations possibles
 
+- Fichier de configuration pour l'url du back
+- Ajout de tests
+- Ajout de la gestion du cache
 - Ajout de skeleton pour gérer le loading plus finement
 - Meilleure gestion de la taille du bundle et de son chargement
-- Fichier de configuration pour l'url du back
+
+
+Note: si le filtre "Fait" est sélectionner et qu'on décoche une todo alors la todo reste (pareil pour "A faire"). C'est lié à l'optimistique rendering. J'ai préféré laisser tel quel j'avais peur que ce soit trop violent pour l'utilisateur de la voir disparaitre.
