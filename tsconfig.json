@@ -11,7 +11,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"],
-            "@common/*": ["src/common/*"]
+            "@common/*": ["src/common/*"],
+            "@todo/*": ["src/todo/*"]
         }
     },
     "include": [

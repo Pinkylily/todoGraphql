@@ -9,6 +9,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@common": path.resolve(__dirname, "./src/common"),
+      "@todo": path.resolve(__dirname, "./src/todo"),
     },
   },
 });

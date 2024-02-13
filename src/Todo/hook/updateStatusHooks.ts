@@ -1,6 +1,6 @@
 import { MutationResult, useMutation } from "@apollo/client";
-import { ALL_TODOS, UPDATE_TODO_STATUS } from "../data/TodoQueries";
-import { ITodo, IUpdateTodoVariables } from "../data/TodoTypes";
+import { ALL_TODOS, UPDATE_TODO_STATUS } from "@todo/data/TodoQueries";
+import { ITodo, IUpdateTodoVariables } from "@todo/data/TodoTypes";
 
 type IOnChange = (todo: ITodo, checked: boolean) => void;
 type IUpdateResult = { updatedTodo: ITodo };

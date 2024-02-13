@@ -1,9 +1,7 @@
-import { useUpdateAllTodoStatus } from "@/Todo/hook/updateStatusHook";
 import ErrorBoundary from "@/common/components/errorBoundary/ErrorBoundary";
+import ErrorFallback from "@/common/components/errorFallback/ErrorFallback";
 import { useQuery } from "@apollo/client";
-import ErrorFallback from "@common/components/errorFallback/ErrorFallback";
 import {
-  Box,
   Checkbox,
   Divider,
   ListItem,
@@ -13,10 +11,13 @@ import {
   List as MUIList,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import React from "react";
+import TodoContext from "@todo/data/TodoContext";
+import { ALL_TODOS } from "@todo/data/TodoQueries";
+import { ITodo, ITodoFilters } from "@todo/data/TodoTypes";
+import { useUpdateAllTodoStatus } from "@todo/hook/updateStatusHooks";
+import Filters from "@todo/pages/list/components/filters/Filters";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ALL_TODOS } from "../../data/TodoQueries";
-import { ITodo } from "../../data/TodoTypes";
 
 interface IListProps {}
 
@@ -25,7 +26,13 @@ export const FallbackList: React.FC = () => (
 );
 
 const List: React.FC<IListProps> = () => {
-  const { data, error, loading } = useQuery<{ todoList: ITodo[] }>(ALL_TODOS);
+  const [todoFilters] = useContext(TodoContext);
+  const { data, error, loading } = useQuery<
+    { todoList: ITodo[] },
+    ITodoFilters
+  >(ALL_TODOS, {
+    variables: todoFilters,
+  });
   const [onChange, updateResult] = useUpdateAllTodoStatus();
 
   if (loading) {
@@ -37,7 +44,8 @@ const List: React.FC<IListProps> = () => {
   }
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 760, bgcolor: "background.paper" }}>
+    <>
+      <Filters />
       <MUIList>
         {data.todoList.map((todo, index) => (
           <React.Fragment key={todo.id}>
@@ -59,7 +67,7 @@ const List: React.FC<IListProps> = () => {
           </React.Fragment>
         ))}
       </MUIList>
-    </Box>
+    </>
   );
 };
 

@@ -1,6 +1,3 @@
-import { ONE_TODO } from "@/Todo/data/TodoQueries";
-import { ITodo } from "@/Todo/data/TodoTypes";
-import { useUpdateOneTodoStatus } from "@/Todo/hook/updateStatusHook";
 import ErrorBoundary from "@/common/components/errorBoundary/ErrorBoundary";
 import ErrorFallback from "@/common/components/errorFallback/ErrorFallback";
 import { useQuery } from "@apollo/client";
@@ -11,6 +8,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { ONE_TODO } from "@todo/data/TodoQueries";
+import { ITodo } from "@todo/data/TodoTypes";
+import { useUpdateOneTodoStatus } from "@todo/hook/updateStatusHooks";
 import React from "react";
 import { useParams } from "react-router-dom";
 
@@ -38,8 +38,8 @@ const Details: React.FC<IDetailsProps> = () => {
   const { todo } = todoResult.data;
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 760, bgcolor: "background.paper" }}>
-      <Stack spacing={3}>
+    <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+      <Stack spacing={3} justifyContent={"center"}>
         <Stack direction="row" spacing={2}>
           <Typography typography="h4">{todo.title}</Typography>
           <Checkbox

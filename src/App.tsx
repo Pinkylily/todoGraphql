@@ -1,16 +1,21 @@
 import { ApolloProvider } from "@apollo/client";
 import { Global, css } from "@emotion/react";
-import { CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Container, CssBaseline } from "@mui/material";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import client from "./client";
 
-import { Suspense, lazy } from "react";
+import Header from "@common/components/header/Header";
+import TodoContext from "@todo/data/TodoContext";
+import { ITodoFilters } from "@todo/data/TodoTypes";
+import { Suspense, lazy, useState } from "react";
 
-const Details = lazy(() => import("./Todo/pages/Details/Details"));
-const List = lazy(() => import("./Todo/pages/List/List"));
+const Details = lazy(() => import("@todo/pages/details/Details"));
+const List = lazy(() => import("@todo/pages/list/List"));
 
 const App = () => {
+  const todoFilterState = useState<ITodoFilters>({});
+
   return (
     <ApolloProvider client={client}>
       <Global
@@ -21,24 +26,26 @@ const App = () => {
           }
         `}
       />
-
-      <BrowserRouter>
-        <header
-          css={css`
-            margin-bottom: 20px;
-          `}
-        >
-          <Link to="/">
-            <Typography variant="h2">Ma liste de choses à faire</Typography>
-          </Link>
-        </header>
-        <Suspense fallback={<CircularProgress />}>
-          <Routes>
-            <Route path="/details/:id" element={<Details />} />
-            <Route path="/" element={<List />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+      <TodoContext.Provider value={todoFilterState}>
+        <BrowserRouter>
+          <Header />
+          <CssBaseline />
+          <div
+            css={css`
+              background-color: #e4f0e2;
+            `}
+          >
+            <Container sx={{ bgcolor: "background.paper" }}>
+              <Suspense fallback={<CircularProgress />}>
+                <Routes>
+                  <Route path="/details/:id" element={<Details />} />
+                  <Route path="/" element={<List />} />
+                </Routes>
+              </Suspense>
+            </Container>
+          </div>
+        </BrowserRouter>
+      </TodoContext.Provider>
     </ApolloProvider>
   );
 };
