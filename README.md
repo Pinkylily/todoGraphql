@@ -2,11 +2,14 @@
 
 ## Lancer le projet
 
-Il est nécessaire d'avoir Node version 18
+Tout d'abord lancer le projet back disponnible [ici](https://github.com/Mrtblg/todo-provided-server) sur le port 4000
 
-Pour installer les dépendances: `npm install`
-Puis pour lancer le projet il faut d'abord lancer le [back](https://github.com/Mrtblg/todo-provided-server) sur le port 4000 puis lancer le projet front avec `npm start`
+Il est nécessaire d'avoir Node version 18 pour le projet front
 
+Dans le front: 
+- installer les dépendances `npm install`
+- `npm start` pour lancer le projet
+  
 ## Les choix techniques
 
 Les technos utilisées sont:
@@ -37,4 +40,4 @@ Pour le découpage il y a:
 - Meilleure gestion de la taille du bundle et de son chargement
 
 
-Note: si le filtre "Fait" est sélectionner et qu'on décoche une todo alors la todo reste (pareil pour "A faire"). C'est lié à l'optimistique rendering. J'ai préféré laisser tel quel j'avais peur que ce soit trop violent pour l'utilisateur de la voir disparaitre.
+Bugs connus: si le filtre "Fait" est sélectionné et qu'on décoche une todo alors la todo reste (pareil pour "A faire"). C'est lié à l'optimistique rendering. J'ai préféré laisser tel quel j'avais peur que ce soit trop violent pour l'utilisateur de la voir disparaitre.
