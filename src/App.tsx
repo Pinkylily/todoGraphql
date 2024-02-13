@@ -10,8 +10,8 @@ import TodoContext from "@todo/data/TodoContext";
 import { ITodoFilters } from "@todo/data/TodoTypes";
 import { Suspense, lazy, useState } from "react";
 
-const Details = lazy(() => import("@todo/pages/details/Details"));
-const List = lazy(() => import("@todo/pages/list/List"));
+const Details = lazy(() => import("@/todo/pages/details/DetailsPage"));
+const List = lazy(() => import("@/todo/pages/list/ListPage"));
 
 const App = () => {
   const todoFilterState = useState<ITodoFilters>({});
@@ -24,18 +24,27 @@ const App = () => {
             text-decoration: none;
             color: unset;
           }
+
+          html,
+          body,
+          #root {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
         `}
       />
       <TodoContext.Provider value={todoFilterState}>
         <BrowserRouter>
-          <Header />
-          <CssBaseline />
           <div
             css={css`
               background-color: #e4f0e2;
+              height: 100%;
             `}
           >
-            <Container sx={{ bgcolor: "background.paper" }}>
+            <Header />
+            <CssBaseline />
+            <Container sx={{ bgcolor: "background.paper", minHeight: "300px" }}>
               <Suspense fallback={<CircularProgress />}>
                 <Routes>
                   <Route path="/details/:id" element={<Details />} />

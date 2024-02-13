@@ -28,3 +28,7 @@ export enum OrderingDate {
   DATE_DESC = "DATE_DESC",
   DATE_ASC = "DATE_ASC",
 }
+
+export type IOnChangeStatus = (todo: ITodo, checked: boolean) => void;
+
+export type IUpdateResult = { updatedTodo: ITodo };

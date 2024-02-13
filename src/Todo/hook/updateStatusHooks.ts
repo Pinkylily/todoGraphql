@@ -1,12 +1,13 @@
 import { MutationResult, useMutation } from "@apollo/client";
-import { ALL_TODOS, UPDATE_TODO_STATUS } from "@todo/data/TodoQueries";
-import { ITodo, IUpdateTodoVariables } from "@todo/data/TodoTypes";
-
-type IOnChange = (todo: ITodo, checked: boolean) => void;
-type IUpdateResult = { updatedTodo: ITodo };
+import { UPDATE_TODO_STATUS } from "@todo/data/TodoQueries";
+import {
+  IOnChangeStatus,
+  IUpdateResult,
+  IUpdateTodoVariables,
+} from "@todo/data/TodoTypes";
 
 export const useUpdateOneTodoStatus = (): [
-  IOnChange,
+  IOnChangeStatus,
   MutationResult<IUpdateResult>,
 ] => {
   const [updateTodoStatus, result] = useMutation<
@@ -14,7 +15,7 @@ export const useUpdateOneTodoStatus = (): [
     IUpdateTodoVariables
   >(UPDATE_TODO_STATUS);
 
-  const onChange: IOnChange = (todo, checked) => {
+  const onChange: IOnChangeStatus = (todo, checked) => {
     void updateTodoStatus({
       variables: { id: todo.id, isDone: checked },
       optimisticResponse: {
@@ -30,29 +31,15 @@ export const useUpdateOneTodoStatus = (): [
 };
 
 export const useUpdateAllTodoStatus = (): [
-  IOnChange,
+  IOnChangeStatus,
   MutationResult<IUpdateResult>,
 ] => {
   const [updateTodoStatus, result] = useMutation<
     IUpdateResult,
     IUpdateTodoVariables
-  >(UPDATE_TODO_STATUS, {
-    update(cache, { data: { updatedTodo } }) {
-      const { todoList } = cache.readQuery<{ todoList: ITodo[] }>({
-        query: ALL_TODOS,
-      });
-      cache.writeQuery({
-        query: ALL_TODOS,
-        data: {
-          todoList: todoList.map((todo) =>
-            todo.id === updatedTodo.id ? updatedTodo : todo,
-          ),
-        },
-      });
-    },
-  });
+  >(UPDATE_TODO_STATUS);
 
-  const onChange: IOnChange = (todo, checked) => {
+  const onChange: IOnChangeStatus = (todo, checked) => {
     void updateTodoStatus({
       variables: { id: todo.id, isDone: checked },
       optimisticResponse: {
